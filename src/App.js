@@ -7,29 +7,24 @@ class App extends Component {
   constructor(){
     super();
     this.state={
-      products :[
-        {
-          judul : 'Powerbank 1',
-          harga : '100000'
-        },
-        {
-          judul : 'Powerbank 2',
-          harga : '200000'
-        },
-        {
-          judul : 'Kabel data  USB3',
-          harga : '30000'
-        }
-      ]
+      products :[]
     }
   }
+  componentDidMount(){
+    fetch('https://my-json-server.typicode.com/mikorail/jsonmomoa/products')
+    .then(response=>response.json())
+    .then((data)=>{
+      this.setState({products:data})
+    })
+  }
+  
   render() {
     return (
       <div className="row">
         <header className="App-header">
           {
             this.state.products.map((data,key)=>
-            <Product className="column" judul={data.judul} harga={data.harga}/>
+            <Product className="column" judul={data.name} harga={data.price}/>
             )
           }
         </header>
